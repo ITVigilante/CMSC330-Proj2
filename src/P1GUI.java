@@ -154,8 +154,49 @@ public class P1GUI {
 
         if(element.matches(regexSymbol))
         {
+
             expressFlag = true;
-            
+            if (numberStack.size() == 2 && element.matches(regexEquals))
+            {
+                Equations eq = new Equations();
+                int result;
+                int num2 = Integer.parseInt((String) numberStack.pop());
+                int num1 = Integer.parseInt((String) numberStack.pop());
+                if (express.matches(regexAdd))
+                {
+                    result = eq.addition(num1,num2);
+                    textField.setText(result+"");
+                }
+                else if (express.matches(regexSubtract))
+                {
+                    result = eq.subtract(num1,num2);
+                    textField.setText(result+"");
+                }
+                else if (express.matches(regexMultiply))
+                {
+                    result = eq.multiply(num1,num2);
+                    textField.setText(result+"");
+                }
+                else if (express.matches(regexDivide))
+                {
+                    if (num2 == 0)
+                    {
+                        textField.setText("Cannot Divide by 0");
+
+                    }
+                    else
+                    {
+                        result = eq.divide(num1,num2);
+                        textField.setText(result+"");
+                    }
+
+
+                }
+            }
+            else
+            {
+                express = element;
+            }
         }
 
     }
