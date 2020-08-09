@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class P1GUI {
     JFrame frame;
@@ -9,8 +12,13 @@ public class P1GUI {
     FlowLayout flow;
     GridLayout grid;
     ButtonGroup group;
+    JTextField textField; //Given that the nature of this project, a textfield is required
+    Stack numberStack;
+    String express;
+    boolean expressFlag;
     public P1GUI(){
-
+        numberStack = new Stack();
+        expressFlag = false;
     }
 
 
@@ -68,6 +76,16 @@ public class P1GUI {
 
     public void generateButton(int proccess, String text){
         JButton button = new JButton(text);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                evaluate(text);
+                // display/center the jdialog when the button is pressed
+                //JDialog d = new JDialog(frame, button.getText(), true);
+                //d.setLocationRelativeTo(frame);
+                //d.setVisible(true);
+            }
+        });
         if(proccess == 1)
             frame.add(button);
         else if (proccess == 2)
@@ -86,7 +104,8 @@ public class P1GUI {
     }
 
     public void generateTextField(int proccess, int num){
-        JTextField textField = new JTextField(num);
+        textField = new JTextField(num);
+        textField.setText("0");
         if(proccess == 1)
             frame.add(textField);
         else if (proccess == 2)
@@ -105,6 +124,40 @@ public class P1GUI {
 
     public void generateGroup(){
          group = new ButtonGroup();
+    }
+
+    private void evaluate(String element)
+    {
+        String regexSymbol = "\\+|\\-|\\*|\\/|\\=";
+        String regexAdd = "\\+";
+        String regexMultiply = "\\*";
+        String regexSubtract = "\\-";
+        String regexDivide = "\\/";
+        String regexEquals = "\\=";
+        String regexNum = "\\d+$";
+
+        if (element.matches(regexNum))
+        {
+            if(!numberStack.empty() && !expressFlag)
+            {
+                String tempElement = numberStack.pop().toString() + element;
+                numberStack.push(tempElement);
+                textField.setText(tempElement);
+            }
+            else
+            {
+                numberStack.push(element);
+                textField.setText(element);
+            }
+            expressFlag = false;
+        }
+
+        if(element.matches(regexSymbol))
+        {
+            expressFlag = true;
+            
+        }
+
     }
 
 

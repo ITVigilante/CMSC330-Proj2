@@ -15,11 +15,18 @@ public class GUIAnalyzer {
     private final String regexWhiteSpace = "\\s";
     private final String regexLeftParenthesis = "\\(";
     private final String regexRightParenthesis = "\\)";
+    /*
+    private final String regexRightParenthesis = "\\+";
+    private final String regexRightParenthesis = "\\-";
+    private final String regexRightParenthesis = "\\/";
+    private final String regexRightParenthesis = "\\*";
+    private final String regexRightParenthesis = "\\=";
+     */
     private final String regexPeriod = "\\.";
     private final String regexColon = "\\:";
     private final String regexSemiColon = "\\;";
     private final String regexComma = "\\,";
-    private final String regexLetter = "[a-z]|[A-Z]";
+    private final String regexLetter = "[a-z]|[A-Z]|\\+|\\-|\\*|\\/|\\=";
     private final String regexQuote = "\"";
 
     public GUIAnalyzer(String fileName) {
