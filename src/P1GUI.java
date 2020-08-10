@@ -16,11 +16,11 @@ public class P1GUI {
     Stack numberStack;
     String express;
     boolean expressFlag;
+
     public P1GUI(){
         numberStack = new Stack();
         expressFlag = false;
     }
-
 
     public void generateWindow (List<String> windowComps)
     {
@@ -138,6 +138,7 @@ public class P1GUI {
         String regexDecimal = "\\.";
         String regexAllClear = "AC";
         String regexClear = "C";
+        String regexNeg = "\\-\\/\\+";
 
         if (element.matches(regexNum) || element.matches(regexDecimal))
         {
@@ -265,6 +266,28 @@ public class P1GUI {
             express = "";
             expressFlag = false;
             textField.setText("0");
+        }
+
+        if (element.matches(regexNeg))
+        {
+            //if stack isn't empty
+            if (!numberStack.empty())
+            {
+                StringBuilder sb = new StringBuilder((String)numberStack.pop());
+                sb.insert(0,"-");
+                numberStack.push(sb.toString());
+                textField.setText("" + sb.toString());
+            }
+            else
+            {
+                //if stack is empty
+                numberStack.push("-");
+                textField.setText("-" + "0");
+            }
+
+
+
+
         }
 
     }
