@@ -135,8 +135,11 @@ public class P1GUI {
         String regexDivide = "\\/";
         String regexEquals = "\\=";
         String regexNum = "\\d+$";
+        String regexDecimal = "\\.";
+        String regexAllClear = "AC";
+        String regexClear = "C";
 
-        if (element.matches(regexNum))
+        if (element.matches(regexNum) || element.matches(regexDecimal))
         {
             if(!numberStack.empty() && !expressFlag)
             {
@@ -159,44 +162,109 @@ public class P1GUI {
             if (numberStack.size() == 2 && element.matches(regexEquals))
             {
                 Equations eq = new Equations();
-                int result;
-                int num2 = Integer.parseInt((String) numberStack.pop());
-                int num1 = Integer.parseInt((String) numberStack.pop());
-                if (express.matches(regexAdd))
-                {
-                    result = eq.addition(num1,num2);
-                    textField.setText(result+"");
-                }
-                else if (express.matches(regexSubtract))
-                {
-                    result = eq.subtract(num1,num2);
-                    textField.setText(result+"");
-                }
-                else if (express.matches(regexMultiply))
-                {
-                    result = eq.multiply(num1,num2);
-                    textField.setText(result+"");
-                }
-                else if (express.matches(regexDivide))
-                {
-                    if (num2 == 0)
-                    {
-                        textField.setText("Cannot Divide by 0");
+                String stackCon2 =  (String) numberStack.pop();
+                String stackCon1 =  (String) numberStack.pop();
 
-                    }
-                    else
+                if (stackCon2.contains(".") || stackCon1.contains("."))
+                {
+                    double result;
+                    double num2 = Double.parseDouble(stackCon2);
+                    double num1 = Double.parseDouble(stackCon1);
+                    if (express.matches(regexAdd))
                     {
-                        result = eq.divide(num1,num2);
+                        result = eq.addition(num1,num2);
                         textField.setText(result+"");
                     }
+                    else if (express.matches(regexSubtract))
+                    {
+                        result = eq.subtract(num1,num2);
+                        textField.setText(result+"");
+                    }
+                    else if (express.matches(regexMultiply))
+                    {
+                        result = eq.multiply(num1,num2);
+                        textField.setText(result+"");
+                    }
+                    else if (express.matches(regexDivide))
+                    {
+                        if (num2 == 0)
+                        {
+                            textField.setText("Cannot Divide by 0");
+
+                        }
+                        else
+                        {
+                            result = eq.divide(num1,num2);
+                            textField.setText(result+"");
+                        }
 
 
+                    }
                 }
+                else
+                {
+                    int result;
+                    int num2 = Integer.parseInt(stackCon2);
+                    int num1 = Integer.parseInt(stackCon1);
+                    if (express.matches(regexAdd))
+                    {
+                        result = eq.addition(num1,num2);
+                        textField.setText(result+"");
+                    }
+                    else if (express.matches(regexSubtract))
+                    {
+                        result = eq.subtract(num1,num2);
+                        textField.setText(result+"");
+                    }
+                    else if (express.matches(regexMultiply))
+                    {
+                        result = eq.multiply(num1,num2);
+                        textField.setText(result+"");
+                    }
+                    else if (express.matches(regexDivide))
+                    {
+                        if (num2 == 0)
+                        {
+                            textField.setText("Cannot Divide by 0");
+
+                        }
+                        else
+                        {
+                            result = eq.divide(num1,num2);
+                            textField.setText(result+"");
+                        }
+
+
+                    }
+                }
+
+
             }
             else
             {
                 express = element;
             }
+        }
+
+        if(element.matches(regexClear))
+        {
+            if(!numberStack.empty()) {
+                numberStack.pop();
+                if(!numberStack.empty())
+                    textField.setText("" + numberStack.peek());
+                else
+                    textField.setText("0");
+            }
+
+        }
+
+        if (element.matches(regexAllClear))
+        {
+
+            numberStack.clear();
+            express = "";
+            expressFlag = false;
+            textField.setText("0");
         }
 
     }
