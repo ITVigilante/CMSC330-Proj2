@@ -133,7 +133,6 @@ public class P1GUI {
         String regexMultiply = "\\*";
         String regexSubtract = "\\-";
         String regexDivide = "\\/";
-        String regexEquals = "\\=";
         String regexNum = "\\d+$";
         String regexDecimal = "\\.";
         String regexAllClear = "AC";
@@ -160,7 +159,7 @@ public class P1GUI {
         {
 
             expressFlag = true;
-            if (numberStack.size() == 2 && element.matches(regexEquals))
+            if (numberStack.size() == 2)
             {
                 Equations eq = new Equations();
                 String stackCon2 =  (String) numberStack.pop();
@@ -175,16 +174,19 @@ public class P1GUI {
                     {
                         result = eq.addition(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexSubtract))
                     {
                         result = eq.subtract(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexMultiply))
                     {
                         result = eq.multiply(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexDivide))
                     {
@@ -197,9 +199,8 @@ public class P1GUI {
                         {
                             result = eq.divide(num1,num2);
                             textField.setText(result+"");
+                            numberStack.push(result+"");
                         }
-
-
                     }
                 }
                 else
@@ -211,16 +212,19 @@ public class P1GUI {
                     {
                         result = eq.addition(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexSubtract))
                     {
                         result = eq.subtract(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexMultiply))
                     {
                         result = eq.multiply(num1,num2);
                         textField.setText(result+"");
+                        numberStack.push(result+"");
                     }
                     else if (express.matches(regexDivide))
                     {
@@ -233,6 +237,7 @@ public class P1GUI {
                         {
                             result = eq.divide(num1,num2);
                             textField.setText(result+"");
+                            numberStack.push(result+"");
                         }
 
 
@@ -284,9 +289,6 @@ public class P1GUI {
                 numberStack.push("-");
                 textField.setText("-" + "0");
             }
-
-
-
 
         }
 
