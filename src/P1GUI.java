@@ -165,6 +165,7 @@ public class P1GUI {
                 String stackCon2 =  (String) numberStack.pop();
                 String stackCon1 =  (String) numberStack.pop();
 
+
                 if (stackCon2.contains(".") || stackCon1.contains("."))
                 {
                     double result;
@@ -202,6 +203,7 @@ public class P1GUI {
                             numberStack.push(result+"");
                         }
                     }
+             
                 }
                 else
                 {
@@ -246,10 +248,9 @@ public class P1GUI {
 
 
             }
-            else
-            {
+
                 express = element;
-            }
+
         }
 
         if(element.matches(regexClear))
